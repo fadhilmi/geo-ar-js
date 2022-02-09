@@ -11,22 +11,22 @@ const loadPlaces = function () {
 };
 
 window.onload = () => {
-  document.getElementById("button").onclick = (event) => {
-    const latitude = document.getElementById("input-latitude").value;
-    const longitude = document.getElementById("input-longitude").value;
+  // document.getElementById("button").onclick = (event) => {
+  //   const latitude = document.getElementById("input-latitude").value;
+  //   const longitude = document.getElementById("input-longitude").value;
 
-    const isLatitudeValid = isFinite(latitude) && Math.abs(latitude) <= 90;
-    const isLongitudeValid = isFinite(longitude) && Math.abs(longitude) <= 180;
-    if (isLatitudeValid && isLongitudeValid) {
-      const icon = document.querySelector("a-box");
-      icon.setAttribute(
-        "gps-entity-place",
-        `latitude: ${latitude}; longitude: ${longitude}`
-      );
-    } else {
-      alert("please enter valide latitude & longitude");
-    }
-  };
+  //   const isLatitudeValid = isFinite(latitude) && Math.abs(latitude) <= 90;
+  //   const isLongitudeValid = isFinite(longitude) && Math.abs(longitude) <= 180;
+  //   if (isLatitudeValid && isLongitudeValid) {
+  //     const icon = document.querySelector("a-box");
+  //     icon.setAttribute(
+  //       "gps-entity-place",
+  //       `latitude: ${latitude}; longitude: ${longitude}`
+  //     );
+  //   } else {
+  //     alert("please enter valide latitude & longitude");
+  //   }
+  // };
 
   const scene = document.querySelector("a-scene");
   // first get current user location
