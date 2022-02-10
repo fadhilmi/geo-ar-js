@@ -29,6 +29,7 @@ window.onload = () => {
   const arrow = document.querySelector(".arrow");
   const infoDescription = document.querySelector("#details");
   const errorText = document.querySelector("#error-text");
+  const backdrop = document.querySelector("#input-field");
 
   let object = {
     name: "Your Object",
@@ -39,7 +40,15 @@ window.onload = () => {
     },
   };
 
-  document.getElementById("button").onclick = (event) => {
+  backdrop.onclick = () => {
+    try {
+      backdrop.className = "input-container-hidden";
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  document.getElementById("btn-input").onclick = (event) => {
     try {
       const latitude = document.getElementById("input-latitude").value;
       const longitude = document.getElementById("input-longitude").value;
@@ -69,10 +78,10 @@ window.onload = () => {
         inputField.className = "input-container-hidden";
         showInput = false;
       } else {
-        alert("please enter valide latitude & longitude");
+        alert("please enter valid latitude & longitude");
       }
     } catch (err) {
-      alert(err);
+      errorText.innerHTML = err;
     }
   };
 
@@ -197,6 +206,7 @@ window.onload = () => {
   };
 
   const handleGeoError = (err) => {
+    errorText.innerHTML = err;
     console.error("Error in retrieving position", err);
   };
 
