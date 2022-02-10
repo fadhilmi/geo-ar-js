@@ -4,12 +4,31 @@ const options = {
   timeout: 27000,
 };
 
+// const onClickInfo = () => {
+//   const arrow = document.querySelector(".arrow");
+//   const errorText = document.querySelector("#error-text");
+//   let show = false;
+//   try {
+//     if (show) {
+//       infoDescription.className = "info-details-hidden";
+//       arrow.style.transform = "rotate(360deg)";
+//     } else {
+//       infoDescription.className = "info-details";
+//       arrow.style.transform = "rotate(180deg)";
+//     }
+//     show = !show;
+//   } catch (err) {
+//     errorText.innerHTML = err;
+//   }
+// };
+
 window.onload = () => {
   let objectExists = false;
   let show = false;
   let showInput = false;
   const arrow = document.querySelector(".arrow");
   const infoDescription = document.querySelector("#details");
+  const errorText = document.querySelector("#error-text");
 
   let object = {
     name: "Your Object",
@@ -58,24 +77,32 @@ window.onload = () => {
   };
 
   document.querySelector("#btn-custom").onclick = () => {
-    const inputField = document.querySelector("#input-field");
-    if (showInput) {
-      inputField.className = "input-container-hidden";
-    } else {
-      inputField.className = "input-container";
+    try {
+      const inputField = document.querySelector("#input-field");
+      if (showInput) {
+        inputField.className = "input-container-hidden";
+      } else {
+        inputField.className = "input-container";
+      }
+      showInput = !showInput;
+    } catch (err) {
+      errorText.innerHTML = err;
     }
-    showInput = !showInput;
   };
 
   document.querySelector(".info-header").onclick = () => {
-    if (show) {
-      infoDescription.className = "info-details-hidden";
-      arrow.style.transform = "rotate(360deg)";
-    } else {
-      infoDescription.className = "info-details";
-      arrow.style.transform = "rotate(180deg)";
+    try {
+      if (show) {
+        infoDescription.className = "info-details-hidden";
+        arrow.style.transform = "rotate(360deg)";
+      } else {
+        infoDescription.className = "info-details";
+        arrow.style.transform = "rotate(180deg)";
+      }
+      show = !show;
+    } catch (err) {
+      errorText.innerHTML = err;
     }
-    show = !show;
   };
 
   // first get current user location
@@ -83,7 +110,6 @@ window.onload = () => {
   const handleCurrentPos = (position) => {
     try {
       // then use it to load from remote APIs some places nearby
-
       const {
         latitude: userLatitude,
         longitude: userLongitude,
@@ -138,31 +164,35 @@ window.onload = () => {
       scene.appendChild(icon);
       objectExists = true;
     } catch (err) {
-      alert(err);
+      errorText.innerHTML = err;
     }
   };
 
   const handleGeoSuccess = (position) => {
-    const {
-      latitude: userLatitude,
-      longitude: userLongitude,
-      altitude: userAltitude,
-    } = position.coords;
+    try {
+      const {
+        latitude: userLatitude,
+        longitude: userLongitude,
+        altitude: userAltitude,
+      } = position.coords;
 
-    const latitudeText = document.querySelector("#latitude-text");
-    const longitudeText = document.querySelector("#longitude-text");
-    const altitudeText = document.querySelector("#altitude-text");
-    const distanceText = document.querySelector("#distance-text");
-    latitudeText.innerHTML = `Latitude: ${userLatitude}`;
-    longitudeText.innerHTML = `Longitude: ${userLongitude}`;
-    altitudeText.innerHTML = `Altitude: ${userAltitude}`;
+      const latitudeText = document.querySelector("#latitude-text");
+      const longitudeText = document.querySelector("#longitude-text");
+      const altitudeText = document.querySelector("#altitude-text");
+      const distanceText = document.querySelector("#distance-text");
+      latitudeText.innerHTML = `Latitude: ${userLatitude}`;
+      longitudeText.innerHTML = `Longitude: ${userLongitude}`;
+      altitudeText.innerHTML = `Altitude: ${userAltitude}`;
 
-    if (objectExists) {
-      const distanceMsg = document
-        .querySelector("[gps-entity-place]")
-        .getAttribute("distanceMsg");
-      console.log(distanceMsg);
-      distanceText.innerHTML = `Distance: ${distanceMsg}`;
+      if (objectExists) {
+        const distanceMsg = document
+          .querySelector("[gps-entity-place]")
+          .getAttribute("distanceMsg");
+        console.log(distanceMsg);
+        distanceText.innerHTML = `Distance: ${distanceMsg}`;
+      }
+    } catch (err) {
+      errorText.innerHTML = err;
     }
   };
 
