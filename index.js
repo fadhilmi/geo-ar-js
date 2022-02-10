@@ -127,14 +127,12 @@ window.onload = () => {
       const objectLongitudeText = document.querySelector(
         "#object-longitude-text"
       );
-      latitudeText.innerHTML = `Latitude: ${userLatitude.toFixed(4)}`;
-      longitudeText.innerHTML = `Longitude: ${userLongitude.toFixed(4)}`;
-      altitudeText.innerHTML = `Altitude: ${userAltitude.toFixed()}`;
-      objectLatitudeText.innerHTML = `Obj. Latitude: ${
-        userLatitude.toFixed(4) + 0.0001
-      }`;
+      latitudeText.innerHTML = `Latitude: ${userLatitude}`;
+      longitudeText.innerHTML = `Longitude: ${userLongitude}`;
+      altitudeText.innerHTML = `Altitude: ${userAltitude}`;
+      objectLatitudeText.innerHTML = `Obj. Latitude: ${userLatitude + 0.0001}`;
       objectLongitudeText.innerHTML = `Obj. Longitude: ${
-        userLongitude.toFixed(4) + 0.0001
+        userLongitude + 0.0001
       }`;
 
       const scene = document.querySelector("a-scene");
@@ -142,8 +140,8 @@ window.onload = () => {
       icon.setAttribute("id", "aEntity");
       icon.setAttribute(
         "gps-entity-place",
-        `latitude: ${userLatitude.toFixed(4) + 0.0001}; longitude: ${
-          userLongitude.toFixed(4) + 0.0001
+        `latitude: ${userLatitude + 0.0001}; longitude: ${
+          userLongitude + 0.0001
         };`
       );
 
@@ -157,7 +155,7 @@ window.onload = () => {
       icon.setAttribute("depth", "2");
       icon.setAttribute("color", "red");
       icon.setAttribute("scale", "1 1 1");
-      icon.setAttribute("position", `0 ${userAltitude.toFixed() + 1} 0`);
+      icon.setAttribute("position", `0 ${userAltitude + 1} 0`);
       icon.setAttribute("rotation", "5 0 0");
 
       icon.addEventListener("loaded", () =>
