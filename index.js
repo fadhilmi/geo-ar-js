@@ -77,12 +77,13 @@ window.onload = () => {
   customBtn.onclick = () => {
     try {
       const inputField = document.querySelector("#input-field");
+      const btnText = document.querySelector("#btn-text");
       if (showInput) {
         inputField.className = "input-container-hidden";
-        customBtn.innerHTML = "Close";
+        btnText.innerHTML = "Custom";
       } else {
         inputField.className = "input-container";
-        customBtn.innerHTML = "Custom";
+        btnText.innerHTML = "Close";
       }
       showInput = !showInput;
     } catch (err) {
