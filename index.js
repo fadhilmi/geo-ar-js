@@ -70,7 +70,7 @@ window.onload = () => {
         alert("please enter valid latitude & longitude");
       }
     } catch (err) {
-      errorText.innerHTML = err;
+      errorText.innerHTML = `btnInput - onclick :: ${err}`;
     }
   };
 
@@ -87,7 +87,7 @@ window.onload = () => {
       }
       showInput = !showInput;
     } catch (err) {
-      errorText.innerHTML = err;
+      errorText.innerHTML = `customBtn - onClick:: ${err}`;
     }
   };
 
@@ -102,7 +102,7 @@ window.onload = () => {
       }
       show = !show;
     } catch (err) {
-      errorText.innerHTML = err;
+      errorText.innerHTML = `infoHeader - onClick :: ${err}`;
     }
   };
 
@@ -170,7 +170,7 @@ window.onload = () => {
       scene.appendChild(icon);
       objectExists = true;
     } catch (err) {
-      errorText.innerHTML = err;
+      errorText.innerHTML = `handleCurrentPos :: ${err}`;
     }
   };
 
@@ -198,12 +198,12 @@ window.onload = () => {
         distanceText.innerHTML = `Distance: ${distanceMsg}`;
       }
     } catch (err) {
-      errorText.innerHTML = err;
+      errorText.innerHTML = `handleGeoSuccess :: ${err}`;
     }
   };
 
   const handleGeoError = (err) => {
-    errorText.innerHTML = err;
+    errorText.innerHTML = `handleGeoError :: ${err}`;
     console.error("Error in retrieving position", err);
   };
 
