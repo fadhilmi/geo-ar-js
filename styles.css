@@ -3,28 +3,80 @@ body {
   overflow: hidden;
 }
 
-.input-container {
+p {
+  margin: 0;
+}
+
+h4 {
+  margin: 3px 0;
+}
+
+/* INFO */
+.info-container {
   position: absolute;
   z-index: 10;
   top: 5px;
-  left: 10px;
+  left: 5px;
   /* right: 100px; */
   border-radius: 5px;
   /* background-color: rgba(230, 230, 230, 0.7); */
   background-color: rgba(0, 0, 0, 0.7);
-  padding: 5px 10px;
   border-radius: 10px;
+  overflow: hidden;
+  width: 200px;
 }
-
-.input-container p {
-  margin: 0;
-  font-size: 12px;
+.info-header {
+  background-color: #212121;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
   color: #eee;
 }
+.info-details {
+  color: #eee;
+  padding: 5px 10px;
+  font-size: 10px;
+}
+.info-details-hidden {
+  display: none;
+}
+.arrow {
+  color: #eee;
+  font-size: 16px;
+  font-weight: bolder;
+}
+/* END INFO */
 
+/* INPUT */
+.input-container-hidden {
+  display: none;
+}
+.input-container {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.input-content {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  /* background-color: rgba(230, 230, 230, 0.7); */
+  background-color: rgba(200, 200, 200, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+}
 .input-wrapper {
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 .input {
   display: flex;
@@ -41,12 +93,13 @@ body {
 .input input {
   font-size: 14px;
 }
+/* END INPUT */
 
 #button {
   background-color: #212121;
   color: #ffffff;
   border: none;
-  border-radius: 5px;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,4 +115,20 @@ body {
   padding: 0;
   margin: 0;
   font-weight: bold;
+}
+
+.button-custom {
+  position: absolute;
+  z-index: 10;
+  bottom: 5px;
+  right: 5px;
+  width: 100px;
+  background-color: #212121;
+  padding: 3px 5px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.button-custom p {
+  color: #ffffff;
 }

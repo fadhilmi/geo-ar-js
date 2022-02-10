@@ -1,15 +1,3 @@
-const loadPlaces = function () {
-  return [
-    {
-      name: "Your place name",
-      location: {
-        lat: 2.733615, // add here latitude if using static data
-        lng: 101.894279, // add here longitude if using static data
-      },
-    },
-  ];
-};
-
 const options = {
   enableHighAccuracy: true,
   maximumAge: 0,
@@ -17,53 +5,112 @@ const options = {
 };
 
 window.onload = () => {
-  // document.getElementById("button").onclick = (event) => {
-  //   const latitude = document.getElementById("input-latitude").value;
-  //   const longitude = document.getElementById("input-longitude").value;
+  let objectExists = false;
+  let show = false;
+  let showInput = false;
+  const arrow = document.querySelector(".arrow");
+  const infoDescription = document.querySelector("#details");
 
-  //   const isLatitudeValid = isFinite(latitude) && Math.abs(latitude) <= 90;
-  //   const isLongitudeValid = isFinite(longitude) && Math.abs(longitude) <= 180;
-  //   if (isLatitudeValid && isLongitudeValid) {
-  //     const icon = document.querySelector("a-box");
-  //     icon.setAttribute(
-  //       "gps-entity-place",
-  //       `latitude: ${latitude}; longitude: ${longitude}`
-  //     );
-  //   } else {
-  //     alert("please enter valide latitude & longitude");
-  //   }
-  // };
+  let object = {
+    name: "Your Object",
+    location: {
+      lat: 2.733615, // add here latitude if using static data
+      lng: 101.894279, // add here longitude if using static data
+      pos: "0 80 0",
+    },
+  };
 
-  const scene = document.querySelector("a-scene");
+  document.getElementById("button").onclick = (event) => {
+    try {
+      const latitude = document.getElementById("input-latitude").value;
+      const longitude = document.getElementById("input-longitude").value;
+      const objectLatitudeText = document.querySelector(
+        "#object-latitude-text"
+      );
+      const objectLongitudeText = document.querySelector(
+        "#object-longitude-text"
+      );
+      const inputField = document.querySelector("#input-field");
+
+      const isLatitudeValid = isFinite(latitude) && Math.abs(latitude) <= 90;
+      const isLongitudeValid =
+        isFinite(longitude) && Math.abs(longitude) <= 180;
+
+      if (isLatitudeValid && isLongitudeValid) {
+        const icon = document.querySelector("a-box");
+        console.log("[DEBUG] :: ", { icon });
+        if (icon) {
+          icon.setAttribute(
+            "gps-entity-place",
+            `latitude: ${latitude}; longitude: ${longitude}`
+          );
+        }
+        objectLatitudeText.innerHTML = `Obj. Latitude: ${latitude}`;
+        objectLongitudeText.innerHTML = `Obj. Longitude: ${longitude}`;
+        inputField.className = "input-container-hidden";
+        showInput = false;
+      } else {
+        alert("please enter valide latitude & longitude");
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  document.querySelector("#btn-custom").onclick = () => {
+    const inputField = document.querySelector("#input-field");
+    if (showInput) {
+      inputField.className = "input-container-hidden";
+    } else {
+      inputField.className = "input-container";
+    }
+    showInput = !showInput;
+  };
+
+  document.querySelector(".info-header").onclick = () => {
+    if (show) {
+      infoDescription.className = "info-details-hidden";
+      arrow.style.transform = "rotate(360deg)";
+    } else {
+      infoDescription.className = "info-details";
+      arrow.style.transform = "rotate(180deg)";
+    }
+    show = !show;
+  };
+
   // first get current user location
 
   const handleCurrentPos = (position) => {
-    // then use it to load from remote APIs some places nearby
+    try {
+      // then use it to load from remote APIs some places nearby
 
-    const {
-      latitude: userLatitude,
-      longitude: userLongitude,
-      altitude: userAltitude,
-    } = position.coords;
+      const {
+        latitude: userLatitude,
+        longitude: userLongitude,
+        altitude: userAltitude,
+      } = position.coords;
 
-    const latitudeText = document.querySelector("#latitude-text");
-    const longitudeText = document.querySelector("#longitude-text");
-    const altitudeText = document.querySelector("#altitude-text");
-    latitudeText.innerHTML = `Latitude: ${userLatitude}`;
-    longitudeText.innerHTML = `Longitude: ${userLongitude}`;
-    altitudeText.innerHTML = `Altitude: ${userAltitude}`;
+      const latitudeText = document.querySelector("#latitude-text");
+      const longitudeText = document.querySelector("#longitude-text");
+      const altitudeText = document.querySelector("#altitude-text");
+      const objectLatitudeText = document.querySelector(
+        "#object-latitude-text"
+      );
+      const objectLongitudeText = document.querySelector(
+        "#object-longitude-text"
+      );
+      latitudeText.innerHTML = `Latitude: ${userLatitude}`;
+      longitudeText.innerHTML = `Longitude: ${userLongitude}`;
+      altitudeText.innerHTML = `Altitude: ${userAltitude}`;
+      objectLatitudeText.innerHTML = `Obj. Latitude: ${object.location.lat}`;
+      objectLongitudeText.innerHTML = `Obj. Longitude: ${object.location.lng}`;
 
-    const places = loadPlaces();
-    console.log("[DEBUG] :: ", { places });
-    places.forEach((place) => {
-      console.log("[DEBUG] :: ", { place });
-      // add place icon
-      // const icon = document.createElement("a-entity");
+      const scene = document.querySelector("a-scene");
       const icon = document.createElement("a-box");
       icon.setAttribute("id", "aEntity");
       icon.setAttribute(
         "gps-entity-place",
-        "latitude: 2.7335247; longitude: 101.8942062;"
+        `latitude: ${object.location.lat}; longitude: ${object.location.lng};`
       );
 
       // icon.setAttribute("animation-mixer", "loop: repeat");
@@ -73,7 +120,7 @@ window.onload = () => {
       // );
       icon.setAttribute("color", "red");
       icon.setAttribute("scale", "10 10 10");
-      icon.setAttribute("position", "0 80 -5");
+      icon.setAttribute("position", "0 100 -5");
       icon.setAttribute("rotation", "5 0 0");
 
       icon.addEventListener("loaded", () =>
@@ -87,9 +134,12 @@ window.onload = () => {
       };
 
       icon.addEventListener("click", clickListener);
-
+      console.log("[DEBUG] :: ", { icon });
       scene.appendChild(icon);
-    });
+      objectExists = true;
+    } catch (err) {
+      alert(err);
+    }
   };
 
   const handleGeoSuccess = (position) => {
@@ -107,11 +157,13 @@ window.onload = () => {
     longitudeText.innerHTML = `Longitude: ${userLongitude}`;
     altitudeText.innerHTML = `Altitude: ${userAltitude}`;
 
-    const distanceMsg = document
-      .querySelector("[gps-entity-place]")
-      .getAttribute("distanceMsg");
-    console.log(distanceMsg);
-    distanceText.innerHTML = `Distance: ${distanceMsg}`;
+    if (objectExists) {
+      const distanceMsg = document
+        .querySelector("[gps-entity-place]")
+        .getAttribute("distanceMsg");
+      console.log(distanceMsg);
+      distanceText.innerHTML = `Distance: ${distanceMsg}`;
+    }
   };
 
   const handleGeoError = (err) => {
