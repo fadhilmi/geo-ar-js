@@ -2,6 +2,7 @@ const options = {
   enableHighAccuracy: true,
   maximumAge: 0,
   timeout: 27000,
+  distanceFilter: 1,
 };
 
 window.onload = () => {
