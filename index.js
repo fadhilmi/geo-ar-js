@@ -4,24 +4,6 @@ const options = {
   timeout: 27000,
 };
 
-// const onClickInfo = () => {
-//   const arrow = document.querySelector(".arrow");
-//   const errorText = document.querySelector("#error-text");
-//   let show = false;
-//   try {
-//     if (show) {
-//       infoDescription.className = "info-details-hidden";
-//       arrow.style.transform = "rotate(360deg)";
-//     } else {
-//       infoDescription.className = "info-details";
-//       arrow.style.transform = "rotate(180deg)";
-//     }
-//     show = !show;
-//   } catch (err) {
-//     errorText.innerHTML = err;
-//   }
-// };
-
 window.onload = () => {
   let objectExists = false;
   let show = false;
@@ -30,6 +12,7 @@ window.onload = () => {
   const infoDescription = document.querySelector("#details");
   const errorText = document.querySelector("#error-text");
   const backdrop = document.querySelector("#input-field");
+  const customBtn = document.querySelector("#btn-custom");
 
   let object = {
     name: "Your Object",
@@ -40,16 +23,17 @@ window.onload = () => {
     },
   };
 
-  backdrop.onclick = () => {
-    try {
-      backdrop.className = "input-container-hidden";
-    } catch (err) {
-      alert(err);
-    }
-  };
+  // backdrop.onclick = () => {
+  //   try {
+  //     backdrop.className = "input-container-hidden";
+  //   } catch (err) {
+  //     alert(err);
+  //   }
+  // };
 
   document.getElementById("btn-input").onclick = (event) => {
     try {
+      const aBox = document.querySelector("a-box");
       const latitude = document.getElementById("input-latitude").value;
       const longitude = document.getElementById("input-longitude").value;
       const objectLatitudeText = document.querySelector(
@@ -73,6 +57,11 @@ window.onload = () => {
             `latitude: ${latitude}; longitude: ${longitude}`
           );
         }
+        console.log("[DEBUG] :: ", { aBox });
+        aBox.setAttribute(
+          "gps-entity-place",
+          `latitude: ${latitude}; longitude:${longitude}`
+        );
         objectLatitudeText.innerHTML = `Obj. Latitude: ${latitude}`;
         objectLongitudeText.innerHTML = `Obj. Longitude: ${longitude}`;
         inputField.className = "input-container-hidden";
@@ -85,13 +74,15 @@ window.onload = () => {
     }
   };
 
-  document.querySelector("#btn-custom").onclick = () => {
+  customBtn.onclick = () => {
     try {
       const inputField = document.querySelector("#input-field");
       if (showInput) {
         inputField.className = "input-container-hidden";
+        customBtn.innerHTML = "Close";
       } else {
         inputField.className = "input-container";
+        customBtn.innerHTML = "Custom";
       }
       showInput = !showInput;
     } catch (err) {
