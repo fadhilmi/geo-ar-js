@@ -137,7 +137,9 @@ window.onload = () => {
       icon.setAttribute("id", "aEntity");
       icon.setAttribute(
         "gps-entity-place",
-        `latitude: ${object.location.lat}; longitude: ${object.location.lng};`
+        `latitude: ${userLatitude + 0.0001}; longitude: ${
+          userLongitude + 0.0001
+        };`
       );
 
       // icon.setAttribute("animation-mixer", "loop: repeat");
@@ -145,9 +147,12 @@ window.onload = () => {
       //   "gltf-model",
       //   "https://cdn.glitch.me/fc511399-d148-4898-ad51-f0b6fafd32a6/scene.gltf"
       // );
+      icon.setAttribute("width", "2");
+      icon.setAttribute("height", "2");
+      icon.setAttribute("depth", "2");
       icon.setAttribute("color", "red");
-      icon.setAttribute("scale", "10 10 10");
-      icon.setAttribute("position", "0 100 -5");
+      icon.setAttribute("scale", "1 1 1");
+      icon.setAttribute("position", "0 80 -5");
       icon.setAttribute("rotation", "5 0 0");
 
       icon.addEventListener("loaded", () =>
