@@ -129,8 +129,10 @@ window.onload = () => {
       latitudeText.innerHTML = `Latitude: ${userLatitude}`;
       longitudeText.innerHTML = `Longitude: ${userLongitude}`;
       altitudeText.innerHTML = `Altitude: ${userAltitude}`;
-      objectLatitudeText.innerHTML = `Obj. Latitude: ${object.location.lat}`;
-      objectLongitudeText.innerHTML = `Obj. Longitude: ${object.location.lng}`;
+      objectLatitudeText.innerHTML = `Obj. Latitude: ${userLatitude + 0.0001}`;
+      objectLongitudeText.innerHTML = `Obj. Longitude: ${
+        userLongitude + 0.0001
+      }`;
 
       const scene = document.querySelector("a-scene");
       const icon = document.createElement("a-box");
