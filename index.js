@@ -154,7 +154,7 @@ window.onload = () => {
       icon.setAttribute("depth", "2");
       icon.setAttribute("color", "red");
       icon.setAttribute("scale", "1 1 1");
-      icon.setAttribute("position", "0 80 -5");
+      icon.setAttribute("position", `0 ${userAltitude + 1} 0`);
       icon.setAttribute("rotation", "5 0 0");
 
       icon.addEventListener("loaded", () =>
